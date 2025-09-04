@@ -1,0 +1,9 @@
+package lk.rumex.lms_cms_be.user.repo;
+
+import lk.rumex.lms_cms_be.user.model.Profile;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface ProfileRepository extends JpaRepository<Profile, Long> {
+  List<Profile> findByUserId(Long userId);
+}
