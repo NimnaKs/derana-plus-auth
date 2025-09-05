@@ -6,9 +6,11 @@ import lk.rumex.lms_cms_be.security.device.UserDeviceRepository;
 import lk.rumex.lms_cms_be.user.model.Profile;
 import lk.rumex.lms_cms_be.user.model.User;
 import lk.rumex.lms_cms_be.user.model.UserSettings;
+import lk.rumex.lms_cms_be.user.repo.ClientPackageRepository;
 import lk.rumex.lms_cms_be.user.repo.ProfileRepository;
 import lk.rumex.lms_cms_be.user.repo.UserRepository;
 import lk.rumex.lms_cms_be.user.repo.UserSettingsRepository;
+import lk.rumex.ott_domain_models.clientPackage.model.ClientPackage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -28,6 +30,7 @@ public class MeController {
   private final ProfileRepository profiles;
   private final UserSettingsRepository settings;
   private final UserDeviceRepository devices;
+  private final ClientPackageRepository clientPackages;
 
   private Long userId(Authentication auth) {
     var u = users.findByEmail(auth.getName()).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED));
@@ -49,6 +52,18 @@ public class MeController {
     if (r.twoFactorEmail()!=null) s.setTwoFactorEmail(r.twoFactorEmail());
     if (r.language()!=null) s.setLanguage(r.language());
     return settings.save(s);
+  }
+
+  // Client Package
+  @PostMapping("/client-package")
+  public ClientPackage addClientPackage(Authentication auth, @RequestBody ClientPackageAddRequest r) {
+    Long uid = userId(auth);
+    var u = users.findById(uid).orElseThrow();
+    var cp = clientPackages.findById(r.clientPackageId())
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    u.setClientPackage(cp);
+    users.save(u);
+    return cp;
   }
 
   // Profiles
