@@ -3,6 +3,7 @@ package lk.rumex.lms_cms_be.user.model;
 import jakarta.persistence.*;
 import lk.rumex.lms_cms_be.user.Enum.AccountStatus;
 import lk.rumex.lms_cms_be.user.Enum.LoginType;
+import lk.rumex.ott_domain_models.clientPackage.model.ClientPackage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,18 +56,8 @@ public class User {
   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
   private Set<Profile> profiles = new LinkedHashSet<>();
 
-  /*@ManyToOne
-  @JoinColumn(name = "tenant_id")
-  private Tenant tenant;
-
   @ManyToOne
   @JoinColumn(name = "clientPackages_id")
   private ClientPackage clientPackage;
 
-  @Column(nullable = false)
-  private Boolean isTenant;
-
-  private Boolean isDeleted;
-
-  */
 }
