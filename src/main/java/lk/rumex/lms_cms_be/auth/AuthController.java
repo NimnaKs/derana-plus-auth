@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
   private final AuthService service;
 
+  @GetMapping("/email-exists")
+  public ResponseEntity<Boolean> emailExists(@RequestParam String email) {
+    return ResponseEntity.ok(service.emailExists(email));
+  }
+
   @PostMapping("/signup")
   public ResponseEntity<Void> signup(@RequestBody SignupRequest r) { service.signup(r); return ResponseEntity.ok().build(); }
 

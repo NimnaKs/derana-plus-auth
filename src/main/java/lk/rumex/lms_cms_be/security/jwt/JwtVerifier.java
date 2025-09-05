@@ -32,8 +32,9 @@ public class JwtVerifier {
       Long userId = Long.parseLong(claims.getSubject());
       User u = users.findById(userId).orElse(null);
       if (u == null) return Optional.empty();
-      var auth = new UsernamePasswordAuthenticationToken(u.getEmail(), null,
-        Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
+      String role = u.isAdmin() ? "ROLE_ADMIN" : "ROLE_USER";
+      var auth = new UsernamePasswordAuthenticationToken(
+        u.getEmail(), null, Collections.singleton(new SimpleGrantedAuthority(role)));
       return Optional.of(auth);
     } catch (Exception e) {
       return Optional.empty();

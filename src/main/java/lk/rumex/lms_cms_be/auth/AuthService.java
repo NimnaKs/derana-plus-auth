@@ -35,6 +35,8 @@ public class AuthService {
   @Value("${devices.max-per-user:3}")
   private int maxDevices;
 
+  public boolean emailExists(String email) { return users.existsByEmail(email); }
+
   @Transactional
   public void signup(SignupRequest r) {
     if (users.existsByEmail(r.email())) throw new ResponseStatusException(HttpStatus.CONFLICT, "Email already used");
