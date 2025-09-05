@@ -22,7 +22,7 @@ public class SecurityConfig {
       .csrf(csrf -> csrf.disable())
       .cors(Customizer.withDefaults())
       .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/auth/**", "/oauth2/**", "/login/oauth2/**").permitAll()
+        .requestMatchers("/auth/**", "/admin/**", "/oauth2/**", "/login/oauth2/**").permitAll()
         .anyRequest().authenticated())
       .oauth2Login(Customizer.withDefaults())
       .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

@@ -40,6 +40,9 @@ public class User {
   @Column(nullable = false)
   private boolean emailVerified = false;
 
+  @Column(nullable = false)
+  private boolean admin = false;
+
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
   private Instant createdAt;
