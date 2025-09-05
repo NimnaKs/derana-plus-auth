@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@EntityScan({"lk.rumex.ott_domain_models.clientPackage"})
+@EntityScan({"lk.rumex.ott_domain_models.clientPackage","lk.rumex.lms_cms_be"})
 public class LmsSecurityApplication {
   public static void main(String[] args) {
     SpringApplication.run(LmsSecurityApplication.class, args);
